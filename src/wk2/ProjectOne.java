@@ -1,3 +1,9 @@
+/* File: ProjectOne.java
+ * Date: 20 March 2020
+ * Author: Tyler D Clark
+ * Description: The main file where the GUI is created and where the users are given the opportunity to enter
+ * expressions */
+
 package wk2;
 
 import java.awt.BorderLayout;
@@ -48,6 +54,7 @@ public class ProjectOne extends JFrame implements ActionListener{
 		midPanel.add(prefixToPostfix);
 		midPanel.add(postfixToPrefix);
 		prefixToPostfix.addActionListener(this);
+		postfixToPrefix.addActionListener(this);
 		return midPanel;
 	}
 
@@ -61,7 +68,13 @@ public class ProjectOne extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e){
 
+		try {
 			String expressionString = expressionField.getText();
+			resultTextField.setText(expressionString);
+
+		} catch (NullPointerException ex){
+			JOptionPane.showMessageDialog(null, "Please enter something");
+		}
 
 	}
 }
