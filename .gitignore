@@ -9,3 +9,9 @@ src/wk1/generics/
 .classpath
 
 .project
+
+.idea/
+
+CMSC350.iml
+
+*.class
