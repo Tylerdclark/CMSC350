@@ -71,7 +71,7 @@ public class ProjectOne extends JFrame implements ActionListener{
 			resultTextField.setText(converted);
 
 		} catch (NullPointerException | IOException | SyntaxError ex){
-			JOptionPane.showMessageDialog(null, "Please enter something");
+			JOptionPane.showMessageDialog(null, ex.getMessage());
 		}
 
 	}

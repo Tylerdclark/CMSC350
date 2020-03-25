@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
 
@@ -25,18 +26,30 @@ public class Convert {
                 if (!isOperator(token)){
                     System.out.println(token);
                     operandStack.push(token + " ");
-                }else { //to maintain proper order, the second operand is the first from the stack
-                    String operandTwo = operandStack.pop();
-                    String operandOne = operandStack.pop();
-                    String innerExpression = token + " " + operandOne + operandTwo;
-                    operandStack.push(innerExpression);
+                }else {
+                    try {//replaced many if/else statements with a try/catch which simply throws the custom exception
+                        //for proper order, the second operand is the first from the stack
+                        String operandTwo = operandStack.pop();
+                        String operandOne = operandStack.pop();
+                        String innerExpression = token + " " + operandOne + operandTwo;
+                        operandStack.push(innerExpression);
+                    }catch (EmptyStackException ex){
+                        throw new SyntaxError("Expression is not balanced correctly!");
+                    }
                 }
             }
-            return operandStack.peek();
+            String result = operandStack.pop();
+            //check if stack is empty. If it is, return result
+            if (operandStack.empty()){
+                return result;
+            }else { // else throw new exception
+                throw new SyntaxError("Expression is not balanced correctly!");
+            }
         } else {
             throw new SyntaxError("Please enter something!");
         }
     }
+
 public static String fromPrefixToPostfix(String expression){
         return expression;
 }
