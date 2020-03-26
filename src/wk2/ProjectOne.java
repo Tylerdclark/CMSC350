@@ -14,6 +14,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class ProjectOne extends JFrame implements ActionListener{
+
+	//===================================================================================
+	// Class fields used by the constructor
+	//===================================================================================
 	private static final long serialVersionUID = 1L;
 	private JLabel enterExpression = new JLabel("Enter Expression");
 	private JTextField expressionField = new JTextField(20);
@@ -22,12 +26,16 @@ public class ProjectOne extends JFrame implements ActionListener{
 	private JLabel resultLabel = new JLabel("Result");
 	private JTextField resultTextField = new JTextField(20);
 
-	//main here
+	//===================================================================================
+	// Main method/ GUI object created/ set visible
+	//===================================================================================
 	public static void main(String[] args) {
 		ProjectOne frame = new ProjectOne();
 		frame.setVisible(true);
 	}
-	//constructor
+	//===================================================================================
+	// Class constructor creates GUI with one main panel (which has 3 others added to it)
+	//===================================================================================
 	public ProjectOne() {
 		super("Expression Converter");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,7 +49,9 @@ public class ProjectOne extends JFrame implements ActionListener{
 		contentPane.add(bottomPanel(), BorderLayout.SOUTH);
 		setContentPane(contentPane);
 	}
-	//Split into separate panels which will be flowLayout
+	//===================================================================================
+	// Three panels to be split up on Main
+	//===================================================================================
 	public JPanel topPanel(){
 		JPanel topPanel = new JPanel();
 		topPanel.add(enterExpression);
@@ -63,13 +73,19 @@ public class ProjectOne extends JFrame implements ActionListener{
 		resultTextField.setEditable(false);
 		return botPanel;
 	}
-	// using this class implemented method
+	//===================================================================================
+	// 	class implemented actionPerformed
+	//===================================================================================
 	public void actionPerformed(ActionEvent e){
 		try {
 			String expressionString = expressionField.getText();
-			String converted = Convert.fromPostfixToPrefix(expressionString);
-			resultTextField.setText(converted);
-
+			if(e.getSource() == prefixToPostfix){
+				String converted = Convert.fromPrefixToPostfix(expressionString);
+				resultTextField.setText(converted);
+			} else if (e.getSource() == postfixToPrefix) {
+				String converted = Convert.fromPostfixToPrefix(expressionString);
+				resultTextField.setText(converted);
+			}
 		} catch (NullPointerException | IOException | SyntaxError ex){
 			JOptionPane.showMessageDialog(null, ex.getMessage());
 		}
