@@ -18,13 +18,12 @@ public class ProjectOne extends JFrame implements ActionListener{
 	//===================================================================================
 	// Class fields used by the constructor
 	//===================================================================================
-	private static final long serialVersionUID = 1L;
-	private JLabel enterExpression = new JLabel("Enter Expression");
-	private JTextField expressionField = new JTextField(20);
-	private JButton prefixToPostfix = new JButton("Prefix to Postfix");
-	private JButton postfixToPrefix = new JButton("Postfix to Prefix");
-	private JLabel resultLabel = new JLabel("Result");
-	private JTextField resultTextField = new JTextField(20);
+	private final JLabel enterExpression = new JLabel("Enter Expression");
+	private final JTextField expressionField = new JTextField(20);
+	private final JButton prefixToPostfix = new JButton("Prefix to Postfix");
+	private final JButton postfixToPrefix = new JButton("Postfix to Prefix");
+	private final JLabel resultLabel = new JLabel("Result");
+	private final JTextField resultTextField = new JTextField(20);
 
 	//===================================================================================
 	// Main method/ GUI object created/ set visible
@@ -43,7 +42,7 @@ public class ProjectOne extends JFrame implements ActionListener{
 		setResizable(false);
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(new BorderLayout());
 		contentPane.add(topPanel(), BorderLayout.NORTH);
 		contentPane.add(middlePanel(), BorderLayout.CENTER);
 		contentPane.add(bottomPanel(), BorderLayout.SOUTH);
@@ -52,13 +51,13 @@ public class ProjectOne extends JFrame implements ActionListener{
 	//===================================================================================
 	// Three panels to be split up on Main
 	//===================================================================================
-	public JPanel topPanel(){
+	private JPanel topPanel(){
 		JPanel topPanel = new JPanel();
 		topPanel.add(enterExpression);
 		topPanel.add(expressionField);
 		return topPanel;
 	}
-	public JPanel middlePanel(){
+	private JPanel middlePanel(){
 		JPanel midPanel = new JPanel();
 		midPanel.add(prefixToPostfix);
 		midPanel.add(postfixToPrefix);
@@ -66,7 +65,7 @@ public class ProjectOne extends JFrame implements ActionListener{
 		postfixToPrefix.addActionListener(this);
 		return midPanel;
 	}
-	public JPanel bottomPanel(){
+	private JPanel bottomPanel(){
 		JPanel botPanel = new JPanel();
 		botPanel.add(resultLabel);
 		botPanel.add(resultTextField) ;

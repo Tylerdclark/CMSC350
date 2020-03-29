@@ -8,10 +8,6 @@
 package wk2;
 
 public class SyntaxError extends Exception {
-    public SyntaxError() {
-        super();
-    }
-    public SyntaxError(String message){
-        super(message);
-    }
+    public SyntaxError() { super(); }
+    public SyntaxError(String message){ super(message); }
 }
