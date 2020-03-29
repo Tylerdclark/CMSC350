@@ -21,8 +21,10 @@ ___
 |1|* 2 + 2 - + 12 9 2|2 2 12 9 + 2 - + * |2 2 12 9 + 2 - + * |Yes|Testing prefix to postfix with example expression from instructions.
 |2|2 2 12 9 + 2 - + * |* 2 + 2 - + 12 9 2|* 2 + 2 - + 12 9 2|Yes|Testing postfix to prefix with the output of the previous example.
 |3|+ + A * B C D|A B C * + D + |A B C * + D + |Yes|Testing prefix with characters
-|4|1 + 1|error|JOptionPane warning against improper input|Yes|Testing infixes(bad input). Without proper error-handling, this would try to call pop on an empty stack
-|5|(nothing)|error|JOptionPane asking for input|Yes|Without throwing an exception, simply pressing any of the buttons without input would add an empty string to the stack and eventually cause an EmptyStack exception
+|4|1 2 3 4 5 6+-/*^|^ 1 * 2 / 3 - 4 + 5 6|^ 1 * 2 / 3 - 4 + 5 6| Yes|Testing all operators with no spaces between them.
+|5|1 + 1|error|JOptionPane warning against invalid syntax|Yes|Testing infixes(bad input). Without proper error-handling, this would try to call pop on an empty stack
+|6|(nothing)|error|JOptionPane asking for input|Yes|Without throwing an exception, simply pressing any of the buttons without input would add an empty string to the stack and eventually cause an EmptyStack exception
+|7|+ 2 * 2 2 2|2 2 2 * +|JOptionPane warning that operand stack is not empty|Yes|Case with result being a non-empty stack
 
 ___
 
