@@ -33,7 +33,7 @@ public class Convert {
                         String innerExpression = token + " " + operandOne + operandTwo;
                         operandStack.push(innerExpression);
                     }catch (EmptyStackException ex){
-                        throw new SyntaxError("Expression is not balanced correctly!");
+                        throw new SyntaxError("Trying to call pop on an empty stack! Please check expression.");
                     }
                 }
             }
@@ -42,7 +42,7 @@ public class Convert {
             if (operandStack.empty()){
                 return result;
             }else { // else throw new exception
-                throw new SyntaxError("Expression is not balanced correctly!");
+                throw new SyntaxError("Stack isn't empty! Please check expression.");
             }
         } else { //will add empty string to stack without this
             throw new SyntaxError("Please enter something!");
@@ -69,7 +69,7 @@ public class Convert {
                             String innerExpression = operandOne + operandTwo + token + " ";
                             operandStack.push(innerExpression);
                         }catch (EmptyStackException ex){
-                            throw new SyntaxError("Expression is not balanced correctly!");
+                            throw new SyntaxError("Trying to call pop on an empty stack! Please check expression.");
                         }
                     }
                 }
@@ -78,7 +78,7 @@ public class Convert {
                 if (operandStack.empty()){
                     return result;
                 }else { // else throw new exception
-                    throw new SyntaxError("Expression is not balanced correctly!");
+                    throw new SyntaxError("Stack isn't empty! Please check expression.");
                 }
 
             }else { //will add empty string to stack without this
@@ -120,6 +120,7 @@ public class Convert {
              case '-':
              case '/':
              case '*':
+             case '^':
                  return true;
          } return false;
     }
