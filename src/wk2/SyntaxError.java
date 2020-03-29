@@ -7,7 +7,7 @@
  */
 package wk2;
 
-public class SyntaxError extends Throwable {
+public class SyntaxError extends Exception {
     public SyntaxError() {
         super();
     }
