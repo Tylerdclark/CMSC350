@@ -1,4 +1,4 @@
-# CMIS 350 - Project 1
+# CMSC 350 - Project 1
 
 **Author:** Tyler D Clark  
 **Date:** 25 March 2020  
