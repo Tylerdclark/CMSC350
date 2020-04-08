@@ -1,15 +1,22 @@
+/* File: Polynomial.java
+ * Date: 07 April 2020
+ * Author: Tyler D Clark
+ * Description: The description will go here :o) */
+
 package wk4.project2;
 
-import java.io.StreamTokenizer;
-import java.io.StringReader;
 import java.util.Iterator;
 
 public class Polynomial implements Iterable, Comparable {
 
     //todo: constructor - accepts a string that defines one polynomial in the same format as provided in the input file.
-    public Polynomial(String fromfile){
-        //taking the String and splitting it into terms
-        StreamTokenizer tokenizeExpression = new StreamTokenizer(new StringReader(fromfile));
+    public Polynomial(String fromFile) {
+        String termArr[] = fromFile.split(" ");
+        for (String s: termArr) {
+            double coefficient = Double.parseDouble(s);
+            int exponent = Integer.parseInt(s);
+
+        }
     }
 
     //todo: compareTo - that compares two polynomials.
@@ -30,13 +37,19 @@ public class Polynomial implements Iterable, Comparable {
         return super.toString();
     }
 
-    class Node { double coefficient; int exponent; Node next;
 
-        Node( double c, int e ) { coefficient = c; exponent = e; next = null;}
+
+    static class Term {
+        double coefficient;
+        int exponent;
+        Term next;
+
+        Term(double c, int e, Term next) {
+            this.coefficient = c;
+            this.exponent = e;
+            this.next = next;
+        }
     }
-
-
-
 }
 //todo: create static nested singly linked list class
 
