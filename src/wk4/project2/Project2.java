@@ -21,9 +21,11 @@ public class Project2 {
 
     public static void main(String[] args) {
         // test
+
         ArrayList<String> a = fromFile();
         for (String element: a) {
-            System.out.println(element);
+            Polynomial p = new Polynomial(element);
+            System.out.println();
         }
     }
 
