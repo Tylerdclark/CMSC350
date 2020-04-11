@@ -21,11 +21,14 @@ public class Project2 {
 
     public static void main(String[] args) {
         // test
-
-        ArrayList<String> a = fromFile();
-        for (String element: a) {
-            Polynomial p = new Polynomial(element);
-            System.out.println();
+        try {
+            ArrayList<String> a = fromFile();
+            for (String element : a) {
+                Polynomial p = new Polynomial(element);
+                System.out.println(p);
+            }
+        }catch (InvalidPolynomialSyntax ex){
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),ex.getMessage());
         }
     }
 
