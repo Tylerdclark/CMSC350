@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+//TODO: Scanner object to read from textfield String  and create tree object
+
 public class Project3 extends JFrame {
 
     private JTextField input = new JTextField(20), output = new JTextField(20);
@@ -32,7 +34,7 @@ public class Project3 extends JFrame {
         output.setEditable(false);
         makeTree.addActionListener(treeMaker);
         isBalanced.addActionListener(checkBalanced);
-        isFull.addActionListener();
+        isFull.addActionListener(checkBalanced);
     }
 
     private void makeFlowPanel(JComponent[] components) {
@@ -60,5 +62,5 @@ public class Project3 extends JFrame {
         }catch (Exception except){
             JOptionPane.showMessageDialog(null, except.getMessage());
         }
-    }
+    };
 }

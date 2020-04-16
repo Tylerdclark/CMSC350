@@ -1,6 +1,19 @@
 package wk6;
 
+//TODO: check whether tree is balanced
+//TODO: check whether tree is full
+//TODO: check if tree is proper (node has 0 or 2 children)
+//TODO: return the height of the tree
+//TODO: return the number of nodes (will obviously be used by other methods)
+//TODO: return a fully parenthesized inorder traversal of the tree
+
+
 public class BinaryTree {
+
+
+
+
+
 
     public static class Node<T>{
         private T info;
@@ -31,7 +44,5 @@ public class BinaryTree {
             return right;
         }
     }
-
-
 
 }
