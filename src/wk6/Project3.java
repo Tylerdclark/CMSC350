@@ -29,18 +29,14 @@ public class Project3 extends JFrame {
         setSize(715, 175);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(3, 1));
-        JComponent[] inputComponents = {new JLabel("Enter Expression"),
-                input};
+        JComponent[] inputComponents = {new JLabel("Enter Expression"), input};
         makeFlowPanel(inputComponents);
-        JComponent[] buttonComponents = {makeTree, isBalanced, isFull, isProper, height, nodes, inOrder };
+        JButton[] buttonComponents = {makeTree, isBalanced, isFull, isProper, height, nodes, inOrder };
         makeFlowPanel(buttonComponents);
         JComponent[] outputComponents = {new JLabel("Result"), output};
         makeFlowPanel(outputComponents);
         output.setEditable(false);
-        makeTree.addActionListener(treeListener);
-        isBalanced.addActionListener(treeListener);
-        isFull.addActionListener(treeListener);
-        isProper.addActionListener(treeListener);
+        addAL(buttonComponents);
     }
 
     private void makeFlowPanel(JComponent[] components) {
@@ -50,7 +46,12 @@ public class Project3 extends JFrame {
             panel.add(component);
         add(panel);
     }
-    
+    private void addAL (JButton[] buttons){
+        for (JButton button: buttons){
+            button.addActionListener(treeListener);
+        }
+    }
+
     private final ActionListener treeListener = event -> {
         try {
             switch ((event.getActionCommand())){
@@ -68,13 +69,13 @@ public class Project3 extends JFrame {
                     System.out.println(inputTree.isProper());
                     break;
                 case "Height":
-                    System.out.println(inputTree.height());
+                    output.setText(String.valueOf(inputTree.height()));
                     break;
                 case "Nodes":
-                    System.out.println(inputTree.nodes());
+                    output.setText(String.valueOf(inputTree.nodes()));
                     break;
                 case "Inorder":
-                    System.out.println(inputTree.inOrder());
+                    output.setText(inputTree.inOrder());
                     break;
             }
             //get input / set output
