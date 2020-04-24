@@ -3,6 +3,7 @@ package wk6;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.EmptyStackException;
 
 public class Project3 extends JFrame {
 
@@ -79,8 +80,8 @@ public class Project3 extends JFrame {
                     break;
             }
             //get input / set output
-        } catch (Exception except) {
-            System.out.println(except.getMessage());
+        } catch (IndexOutOfBoundsException | InvalidTreeSyntax except) {
+            JOptionPane.showMessageDialog(null,except.getMessage());
         }
     };
 }
