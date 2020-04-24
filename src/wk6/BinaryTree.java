@@ -42,11 +42,29 @@ public class BinaryTree {
     }
 
     public boolean checkBalanced() {
-        return true;
+        return checkBalanced(this.parent);
+    }
+    public boolean checkBalanced(Node root){
+        //base case
+        if (root == null) {return true;}
+
+        return (Math.abs(recHeight(root.left) - recHeight(root.right)) <= 1) &&
+                (checkBalanced(root.left) && checkBalanced(root.right));
     }
 
+
     public boolean checkFull() {
-        return true;
+        return recCheckFull(this.parent);
+    }
+
+    boolean recCheckFull(Node root) {
+        //base case
+        if(root == null) {return true;}
+        //cases in which it is not full
+        if((root.left == null && root.right != null) || (root.left != null && root.right == null)){
+            return false;
+        }
+        return recCheckFull(root.left) && recCheckFull(root.right);
     }
 
     public boolean isProper() {
@@ -55,7 +73,7 @@ public class BinaryTree {
 
     public int height() {
         //subtract one since in this exercise, root is 0
-        return recHeight(this.parent) - 1;
+        return recHeight(this.parent)-1;
     }
 
     private int recHeight(Node root) {
