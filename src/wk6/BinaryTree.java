@@ -1,3 +1,10 @@
+/* File: BinaryTree.java
+ * Date: 24 April 2020
+ * Author: Tyler D Clark
+ * Description: The file where the Binary trees are constructed from a static node class. Also contains recursive
+ * methods which act on the Binary tree objects. The methods include: isBalanced(), isFull(), isProper(), height(),
+ * nodes() and isProper() */
+
 package wk6;
 
 import java.util.EmptyStackException;
@@ -8,8 +15,8 @@ public class BinaryTree {
     Node parent, child; //After construction, parent is synonymous w/ root
 
     //===============================================================================================
-    //  BinaryTree constructor - Takes the string and turns it into an array based on parenthesis
-    //  loops through using a stack and adds children that fall within parent parenthesis
+    //  BinaryTree constructor - Takes the string and turns it into an array based on parenthesis.
+    //  Loops through using a stack and adds children that fall within parent parenthesis
     //===============================================================================================
     public BinaryTree(String input) throws InvalidTreeSyntax {
         Stack<Node> nodeStack = new Stack<>();
@@ -20,7 +27,6 @@ public class BinaryTree {
         //starts essentially on the third character of the string
         for (int i = 1; i < inputArray.length - 1; i++){
             //means there is another child. Child becomes parent if one exists
-            System.out.println(inputArray[i]);
             if (inputArray[i].equals("(")){
                 nodeStack.push(parent);
                 if (child != null) { parent = child; }
@@ -40,31 +46,31 @@ public class BinaryTree {
     //  checkBalanced - determine if the absolute difference between branches is at most 1.
     //  calls recursive method, which also calls recursive height method.
     //===============================================================================================
-    public boolean checkBalanced() { return recCheckBalanced(this.parent); }
+    public boolean isBalanced() { return recIsBalanced(this.parent); }
 
-    private boolean recCheckBalanced(Node root){
+    private boolean recIsBalanced(Node root){
         //base case
         if (root == null) {return true;}
         //return true if the absolute difference is at most 1
         return (Math.abs(recHeight(root.left) - recHeight(root.right)) <= 1) &&
-                (recCheckBalanced(root.left) && recCheckBalanced(root.right)); // and calls recursively
+                (recIsBalanced(root.left) && recIsBalanced(root.right)); // and calls recursively
     }
 
     //===============================================================================================
     //  checkFull - determines if a tree has the maximum nodes for the height or not.
     //  calls recursive method, which also calls recursive height method.
     //===============================================================================================
-    public boolean checkFull() {return recCheckFull(this.parent, recHeight(this.parent), 0); }
+    public boolean isFull() {return recIsFull(this.parent, recHeight(this.parent), 0); }
     //the index of of parent in this exercise is 0
-    private boolean recCheckFull(Node root, int height, int index) {
+    private boolean recIsFull(Node root, int height, int index) {
         //if it is empty, by BT logic: it is full
         if (root == null){ return true; }
         //check to see if height is same among leaves
-       if (root.left == null && root.right == null) { return (height == index + 1);  }
-       //one child empty
+        if (root.left == null && root.right == null) { return (height == index + 1);  }
+        //one child empty
         if (root.left == null || root.right == null){ return false;}
         //recursive call to both children
-        return recCheckFull(root.left, height, index+1) && recCheckFull(root.right, height, index+1);
+        return recIsFull(root.left, height, index+1) && recIsFull(root.right, height, index+1);
 
     }
     //===============================================================================================
@@ -133,9 +139,9 @@ public class BinaryTree {
             //simple conditions for nodes, can have at most 2 children
             if (this.left == null){ this.setLeft(child); }
             else if (this.right == null){  this.setRight(child); }
-            else{ throw new InvalidTreeSyntax("Problems adding child");} }
+            else{ throw new InvalidTreeSyntax("Nodes can only have 2 children!");} }
 
-        //Simple setter for the nodes
+        //Simple setters for the nodes
         private void setLeft(Node newLeft) { left = newLeft; }
         private void setRight(Node newRight) { right = newRight; }
 
