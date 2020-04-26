@@ -23,12 +23,11 @@ public class BinaryTree {
         String[] inputArray = input.substring(1, input.length()-1) // remove first & last parenthesis
                 //and split the String into a arr of strings, retain the parenthesis
                 .split("(?<=\\()|(?=\\()|(?<=\\))|(?=\\))");
-        parent = new Node(inputArray[0]); //setting the first character to the root
+        parent = new Node(inputArray[0]); //setting the new first character to the root
         //starts essentially on the third character of the string
         for (int i = 1; i < inputArray.length - 1; i++){
             //means there is another child. Child becomes parent if one exists
-            if (inputArray[i].equals("(")){
-                nodeStack.push(parent);
+            if (inputArray[i].equals("(")){ nodeStack.push(parent);
                 if (child != null) { parent = child; }
                 //assign the current parent as the child of one on stack
             }else if(inputArray[i].equals(")")){
@@ -123,11 +122,11 @@ public class BinaryTree {
     // simply calls the the root node toString
     @Override
     public String toString() { return parent.toString(); }
+
     //===============================================================================================
     //   Nested node class/ arguments: character info/ helper methods for nodes
     //  description: Creates nodes to be used in tree and methods to act on them
     //===============================================================================================
-
     public static class Node {
         private String info;
         private Node left;
@@ -145,8 +144,7 @@ public class BinaryTree {
         private void setLeft(Node newLeft) { left = newLeft; }
         private void setRight(Node newRight) { right = newRight; }
 
-        //To call the recursive method
-        @Override
+        @Override //To call the recursive method
         public String toString() { return toString(this); }
         // recursively printing out the nodes
         private static String toString(Node root) {
