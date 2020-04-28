@@ -5,7 +5,7 @@
  * that represent Binary trees using the syntax: (parent(child1)(child2)). Note that there can be at most two
  * children for a given parent and one root parent. */
 
-package wk6;
+package wk6.project3;
 
 import javax.swing.*;
 import java.awt.*;

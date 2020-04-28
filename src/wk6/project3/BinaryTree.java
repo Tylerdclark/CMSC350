@@ -5,7 +5,7 @@
  * methods which act on the Binary tree objects. The methods include: isBalanced(), isFull(), isProper(), height(),
  * nodes() and isProper() */
 
-package wk6;
+package wk6.project3;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
