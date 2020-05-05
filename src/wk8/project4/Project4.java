@@ -20,26 +20,31 @@ public class Project4 {
                     "Project 4", JOptionPane.YES_NO_CANCEL_OPTION);
         }
     }
-    public static void fromFile() {
+    public static <E> void fromFile() {
         //Create JFileChooser
         JFileChooser chooser = new JFileChooser();
         //Show both directories and files
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         //use current directory for ease
-        chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        chooser.setCurrentDirectory(new File("."));
         int response = chooser.showOpenDialog(chooser.getParent());
         if (response == JFileChooser.APPROVE_OPTION){
             File file = chooser.getSelectedFile();
             try {
                 Scanner fileIn = new Scanner(file);
                 if  (file.isFile()){
+                    DirectedGraph<String> graph = new DirectedGraph<>();
                     while (fileIn.hasNextLine()){
-                        Scanner lineScanner = new Scanner(fileIn.nextLine());
-                        while (lineScanner.hasNext()){
-                            System.out.println(lineScanner.next());
+                        String fileLine = fileIn.nextLine();
+                        String[] toArray = fileLine.split(" ");
+                        graph.addVertex((toArray[0]));
+                        for (int i = 1; i < toArray.length; i++){
+                            addEdge(toArray[i]);
                         }
                     }
+                    System.out.println(graph);
                 }
+
             }catch (NoSuchElementException nse){
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"File is empty!");
             }catch(FileNotFoundException fne){
