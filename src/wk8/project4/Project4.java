@@ -30,26 +30,24 @@ public class Project4 {
         int response = chooser.showOpenDialog(chooser.getParent());
         if (response == JFileChooser.APPROVE_OPTION){
             File file = chooser.getSelectedFile();
-            try {
-                Scanner fileIn = new Scanner(file);
-                if  (file.isFile()){
-                    DirectedGraph<String> graph = new DirectedGraph<>();
-                    while (fileIn.hasNextLine()){
-                        String fileLine = fileIn.nextLine();
-                        String[] toArray = fileLine.split(" ");
-                        graph.addVertex((toArray[0]));
-                        for (int i = 1; i < toArray.length; i++){
-                            addEdge(toArray[i]);
-                        }
-                    }
+            try { Scanner fileIn = new Scanner(file);
+                DirectedGraph<String> graph = new DirectedGraph<>();
+                while (fileIn.hasNextLine()){ parseVertexString(fileIn.nextLine(), graph); }
+
                     System.out.println(graph);
-                }
 
             }catch (NoSuchElementException nse){
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"File is empty!");
             }catch(FileNotFoundException fne){
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"File is not found!");
             }
+        }
+    }
+
+    public static void parseVertexString(String fileLine, DirectedGraph<String> graph){
+        String[] toArray = fileLine.split(" ");
+        for (int i = 1; i < toArray.length; i++){
+            graph.createEdge(toArray[0], toArray[i]);
         }
     }
 }
