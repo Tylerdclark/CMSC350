@@ -31,10 +31,20 @@ public class Project4 {
         if (response == JFileChooser.APPROVE_OPTION){
             File file = chooser.getSelectedFile();
             try { Scanner fileIn = new Scanner(file);
+                //Instantiate graph
                 DirectedGraph<String> graph = new DirectedGraph<>();
+                //create graph
                 while (fileIn.hasNextLine()){ parseVertexString(fileIn.nextLine(), graph); }
-
-                    System.out.println(graph);
+                //instantiate DFSActions objects
+                DFSActions<String> parenthesizedList = new ParenthesizedList<>();
+                DFSActions<String>  hierarchy = new Hierarchy<>();
+                //do the DFS
+                //graph.performDFS(parenthesizedList);
+                graph.performDFS(hierarchy);
+                //and print them
+                //System.out.println(parenthesizedList);
+                System.out.println(hierarchy);
+                System.out.println(graph);
 
             }catch (NoSuchElementException nse){
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"File is empty!");

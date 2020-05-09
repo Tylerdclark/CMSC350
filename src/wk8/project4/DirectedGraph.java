@@ -1,13 +1,11 @@
 package wk8.project4;
 
-//TODO: method to allow edges to be added to the graph
-//TODO: method to do a depth-first search
-//TODO: method to display unreachable vertices
-
+import java.util.Objects;
 
 public class DirectedGraph<E> {
 
     Vertex<E> firstVertex;
+    private enum Marks {UNDISCOVERED, DISCOVERED, FINISHED};
 
     //===============================================================================================
     //  Static nested Vertex class.
@@ -17,11 +15,11 @@ public class DirectedGraph<E> {
         E element;
         Edge<E> firstEdge;
         Vertex<E> nextVertex;
-        boolean discovered;
+        Marks mark;
 
         public Vertex(E label){
             element = label;
-            discovered = false;
+            mark = Marks.UNDISCOVERED;
         }
         public boolean hasNext(){ return (nextVertex != null); }
         public Vertex<E> next(){ return nextVertex; }
@@ -76,41 +74,115 @@ public class DirectedGraph<E> {
     //  findAddVertex - attempts to find a vertex and return it, otherwise adds it and returns it
     //===============================================================================================
 
-// v-----> This is clearly the problem area <-----v //
     public Vertex<E> findAddVertex(E value) {
         if (firstVertex == null){
             return firstVertex = new Vertex<>(value);
         }
         Vertex <E> current = firstVertex;
-        while (current.hasNext()){
-            if (current.element == value){ return current; }
+        while (current.hasNext()){// == will not compare String content, only reference
+            if (Objects.equals(current.element, value)){ return current; }//using Objects.equals to guard against null
             current = current.next();
         }
         return current.nextVertex = new Vertex<>(value);
-    }// ^-----> This is clearly the problem area <-----^ //
+    }
 
     //===============================================================================================
-    //  toString - overridden, will be adjusted later
+    //  performDFS - calls markUndiscovered, then calls dfs on them before displaying undiscovered vertices
     //===============================================================================================
 
+public void performDFS(DFSActions<E> actions){
+    //first set all vertices to undiscovered
+    markUndiscovered(this.firstVertex);
+    depthFirstSearch(this.firstVertex, actions);
+    //print undiscovered
+    undiscovered();
+}
+    //===============================================================================================
+    //  markUndiscovered - marks all the vertices undiscovered then calls dfs on them
+    //===============================================================================================
+
+    private void markUndiscovered(Vertex<E> firstVertex) {
+        firstVertex.mark = Marks.UNDISCOVERED;
+        Vertex<E> currentVertex = firstVertex;
+        while (currentVertex != null) {
+            if (currentVertex.firstEdge != null){
+               currentVertex.mark = Marks.UNDISCOVERED;
+                // do the edges here
+                Edge<E> currentEdge = currentVertex.firstEdge;
+                currentEdge.vertex.mark = Marks.UNDISCOVERED;
+                while(currentEdge.hasNext()){
+                    currentEdge.next().vertex.mark = Marks.UNDISCOVERED;
+                    currentEdge = currentEdge.next();
+                }
+            }
+            currentVertex = currentVertex.next();
+        }
+    }
+
+    //===============================================================================================
+    //  depthFirstSearch - recursive dfs that allows specific dfs actions to be called
+    //===============================================================================================
+
+    private void depthFirstSearch(Vertex<E> vertex, DFSActions<E> actions){
+        if (vertex.mark == Marks.DISCOVERED){
+            actions.cycleDetected();
+            return; }
+        if (vertex.mark == Marks.FINISHED){
+            return; }
+        actions.processVertex(vertex.element);
+        vertex.mark = Marks.DISCOVERED;
+        actions.descend();
+        if(vertex.firstEdge != null){
+            Edge<E> currentEdge = vertex.firstEdge;
+            depthFirstSearch(currentEdge.vertex, actions);
+            while (currentEdge.hasNext()){
+                System.out.println(currentEdge.vertex.element + ": " + currentEdge.vertex.mark);
+                depthFirstSearch(currentEdge.next().vertex, actions);
+                currentEdge = currentEdge.next();
+            }
+        } vertex.mark = Marks.FINISHED;
+        actions.ascend();
+}
+    //===============================================================================================
+    // undiscovered - prints the Vertices that are undiscovered
+    //===============================================================================================
+
+    public void undiscovered(){
+        Vertex<E> currentVertex = firstVertex;
+        while (currentVertex != null) {
+            if (currentVertex.firstEdge != null){
+                if(currentVertex.mark == Marks.UNDISCOVERED){
+                    System.out.println(currentVertex.element + " is Undiscovered");
+                    currentVertex.mark = Marks.DISCOVERED;
+                } Edge<E> currentEdge = currentVertex.firstEdge;
+                while(currentEdge.hasNext()){
+                    if((currentEdge.next().vertex.mark == Marks.UNDISCOVERED)){
+                        System.out.println(currentEdge.next().vertex.element + " is Undiscovered");
+                        currentEdge.next().vertex.mark = Marks.DISCOVERED;
+                    } currentEdge = currentEdge.next();
+                }
+            } currentVertex = currentVertex.next();
+        }
+    }
+    //===============================================================================================
+    //  toString - prints all of the vertices and the corresponding edges
+    //===============================================================================================
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("All read Vertices:\n");
         Vertex<E> currentVertex = firstVertex;
         while (currentVertex != null) {
-          //  if (currentVertex.firstEdge != null){
+            if (currentVertex.firstEdge != null){
                 sb.append(currentVertex.element).append(": ");
                 // do the edges here
-//                Edge<E> currentEdge = currentVertex.firstEdge;
-//                sb.append(currentEdge).append(" ");
-//                while(currentEdge.hasNext()){
-//                    sb.append(currentEdge.next()).append(" ");
-//                    currentEdge = currentEdge.next();
-//                }
-                sb.append('\n');
-       //     }
-            currentVertex = currentVertex.next();
-        }
-        return sb.toString();
+                Edge<E> currentEdge = currentVertex.firstEdge;
+                sb.append(currentEdge).append(" ");
+                while(currentEdge.hasNext()){
+                    sb.append(currentEdge.next()).append(" ");
+                    currentEdge = currentEdge.next();
+                } sb.append('\n');
+          } currentVertex = currentVertex.next();
+        } return sb.toString();
     }
 }
