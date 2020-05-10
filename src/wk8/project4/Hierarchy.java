@@ -8,8 +8,8 @@ package wk8.project4;
 
 public class Hierarchy<E> implements DFSActions<E> {
 
-    final StringBuilder toPrint = new StringBuilder();
-    int indentCounter = 0;
+    private final StringBuilder toPrint = new StringBuilder();
+    private int indentCounter = 0;
 
     @Override
     public void cycleDetected() {

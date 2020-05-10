@@ -21,10 +21,10 @@ public class DirectedGraph<E> {
 
     private static class Vertex<E> {
 
-        final E element;
-        Edge<E> firstEdge;
-        Vertex<E> nextVertex;
-        Marks mark;
+        private final E element;
+        private Edge<E> firstEdge;
+        private Vertex<E> nextVertex;
+        private Marks mark;
 
 
         public Vertex(E label) {
@@ -48,8 +48,8 @@ public class DirectedGraph<E> {
 
     private static class Edge<E> {
         //the vertex that the edge connects to
-        final Vertex<E> vertex;
-        Edge<E> nextEdge;
+        private final Vertex<E> vertex;
+        private Edge<E> nextEdge;
 
         public Edge(Vertex<E> v) {
             vertex = v;

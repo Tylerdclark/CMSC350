@@ -8,7 +8,7 @@ package wk8.project4;
 
 public class ParenthesizedList<E> implements DFSActions<E> {
 
-    final StringBuilder toPrint = new StringBuilder();
+    private final StringBuilder toPrint = new StringBuilder();
 
     @Override
     public void cycleDetected() {

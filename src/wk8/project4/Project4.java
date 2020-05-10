@@ -28,6 +28,10 @@ public class Project4 {
         }
     }
 
+    //===============================================================================================
+    //  fromFile - using JFileChooser, loads a graph from file and displays it
+    //===============================================================================================
+
     public static <E> void fromFile() {
         //Create JFileChooser
         JFileChooser chooser = new JFileChooser();
@@ -65,8 +69,11 @@ public class Project4 {
             }
         }
     }
+    //===============================================================================================
+    //  parseVertexString - creates an edges from a String, where the first token is the Vertex
+    //===============================================================================================
 
-    public static void parseVertexString(String fileLine, DirectedGraph<String> graph) {
+    private static void parseVertexString(String fileLine, DirectedGraph<String> graph) {
         String[] toArray = fileLine.split(" ");
         for (int i = 1; i < toArray.length; i++) {
             graph.createEdge(toArray[0], toArray[i]);
