@@ -1,3 +1,0 @@
-ClassA ClassJ
-ClassB ClassD ClassG
-ClassJ ClassB
